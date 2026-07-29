@@ -26,13 +26,14 @@ InvKinNode::InvKinNode() : Node("inv_kin_node")
 }
 bool InvKinNode::solveNextPose()
 {
-    solveIK(poses_[pose_index_]);
-
-    // reset if at max value
+    // return false if done
     if (pose_index_ >= poses_.size())
         return false;
-    else
-        return true;
+    
+    solveIK(poses_[pose_index_]);
+    
+    // return true if not finished
+    return true;
 }
 
 void InvKinNode::robotDescriptionCallback(const std_msgs::msg::String& msg)
